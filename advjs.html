@@ -1,0 +1,75 @@
+// bind method
+let add = function (x, y){
+console.log(x+y);
+}
+
+
+let addByTwo = add.bind(this,2);
+addByTwo(5);
+
+//closure method
+
+let multiply = function(x){
+return function(y){
+console.log(x*y);
+}
+}
+
+let multiplyByTwo = multiply(2);
+multiplyByTwo(5);
+
+
+//call
+var obj ={
+age:3
+}
+
+var addToThis = function(x){
+return this.age + x;
+};
+
+console.log(addToThis.call(obj, 21));
+
+//apply
+
+ var obj ={
+ age:3
+ }
+ 
+ var addToThis = function(x,y,z){
+ return this.age+x+y+z;
+ };
+ 
+ var arr = [9,3,6];
+ console.log(addToThis.apply(obj, arr));
+
+//bind
+
+var obj ={
+ age:3
+ }
+ 
+ var addToThis = function(x,y,z){
+ return this.age+x+y+z;
+ };
+ 
+ var arr = [9,3,6];
+
+var bound = addToThis.bind(obj);
+console.log(bound(9,3,6));
+
+// 4 question
+
+class student {
+constructor(name, age){
+this.name=name;
+this.age=age;
+}
+details(){
+console.log(this.age)
+}
+
+}
+
+var obj = new student ("ameer", 20)
+obj.details()
