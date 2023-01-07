@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="expense.css">
+    <title>Expense tracker</title>
+</head>
+<body>
+    <h1 style = "text-align: center"> <b>Expense Tracker</b> </h1>
+    <p style="text-align: center;"> Please fill all the below required details: </p>
+    <hr>
+ <div class = "container">
+    <form onsubmit="saveToLocalStorage(event)">
+    <label for = "expamount" > Choose expense amount:</label>
+    <input type = "number" id ="addedquantity" name = "useramount" />
+    <label for = "chdescription" > Choose description:</label>
+    <input type = "text" name = "userdescription" id = "descriptionInputTag"/>
+    <label for = "chcategory" > Choose a category:</label>
+    <select name = "usercategory" id="category">
+        <option value="movie">Movie</option>
+        <option value="on vacation">On vacation</option>
+        <option value="diesel">Diesel</option>
+        <option value="food">Food</option> </select>
+        <input class="btn" type="submit" value="Add Expense">
+    </form>
+    <ul id = 'list of items'></ul>
+    <script>
+        function saveToLocalStorage(event){
+            event.preventDefault();
+            const amount = event.target.useramount.value;
+            const description = event.target.userdescription.value;
+            const category = event.target.usercategory.value;
+            const obj={
+                amount,
+                description,
+                category,
+            }
+            localStorage.setItem(obj.description, JSON.stringify(obj));
+            showUserOnScreen(obj);
+        }
+        function showUserOnScreen(obj){
+            const parentElem = document.getElementById('list of items')
+            const childElem = document.createElement('li')
+            childElem.textContent = obj.amount + '-' + obj.description + '-' + obj.category
+            
+        const deleteButton = document.createElement('input')
+        deleteButton.type = "button"
+        deleteButton.value = 'delete'
+        deleteButton.onclick = () => {
+
+            localStorage.removeItem(obj.description)
+            parentElem.removeChild(childElem)
+        }
+        const editButton = document.createElement('input')
+        editButton.type = "button"
+        editButton.value = 'edit'
+        editButton.onclick = () => {
+
+            localStorage.removeItem(obj.description)
+            parentElem.removeChild(childElem)
+            document.getElementById('addedquantity').value = obj.useramount
+            document.getElementById('descriptionInputTag').value =obj.userdescription
+            document.getElementById('category').value = obj.usercategory
+        }
+
+    childElem.appendChild(deleteButton)
+    childElem.appendChild(editButton)
+    parentElem.appendChild(childElem)
+
+        }
+
+    </script>
+ </div>
+</body>
+</html>
